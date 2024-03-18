@@ -1,2 +1,7 @@
 # MSP-Scripts
-Generic MSP scripts that aren't specific to an RMM.
+Generic MSP scripts that aren't specific to a Remote Monitoring & Management (RMM) tool, although some of them may run well from an RMM depending on the purpose. The [Windows-Registry-Hardening script](https://github.com/dszp/MSP-Scripts/tree/main/Windows-Registry-Hardening), for example, runs well from an RMM but has nothing RMM-specific in it.
+
+Scripts that are designed to run from the NinjaOne RMM, although they will often run just fine on their own or from another RMM system (with no or minor modifications, depending on the system) are in the [NinjaOne-Scripts](https://github.com/dszp/NinjaOne-Scripts) repository instead.
+
+## Licensing and Attribution
+Note that some of these scripts I’ve written, and some I’ve modified based on others either initial scripts or contributions; some may even be vendor-provided scripts with minor adjustments to make them more useful. I don’t claim any copyright over scripts or sections of scripts not written by me, and although I haven’t chosen a specific license for my stuff (I may do so), it’s freely usable and modifiable by others (attribution preferred). I’ve attempted to attribute code from others where it’s included. Most scripts are compilations of improvements to small useful projects over time and I’m not aware of any sources who wish to restrict the publication of code that they wrote or contributed to, but if there are objections to the public posting of any of these scripts from other sources, please let me know and I’ll be happy to adjust. You can reach me on Discord at DavidSzp or I’m sure you can probably find other ways to get in touch, I’m not terribly hard to find.
