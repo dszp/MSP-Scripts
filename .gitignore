@@ -1,3 +1,5 @@
 *.plist
 .DS_Store
 *.fossil
+.Ulysses*
+*.fossil
