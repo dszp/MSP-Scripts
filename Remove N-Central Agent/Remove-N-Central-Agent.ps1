@@ -18,18 +18,18 @@ The script may leave some top-level folders under Program Files, that are empty,
 
 The script WILL delete agent logs and history in ProgramData subfolders.
 
-The script WILL attempt to remove the Take Control (BeAnywhere) services and folders if they existand -Clean is specified, but does not attempt any separate uninstallation.
+The script WILL attempt to remove the Take Control (BeAnywhere) services and folders if they exist and -Clean is specified, but does not attempt any separate uninstallation.
 
-The script should be run with admin privileges, ideally as System, and will quit if it is not.
+The script should be run with admin privileges, ideally as SYSTEM, and will quit if it is not.
 
-Paths and services to clean up are hardcoded into the script under CONFIG AND SETUP, and will use the correct system drive for the system but the rest of the paths are hardcoded. The installation folders that any exisitng services refer to will be added to the cleanup list, if they are different and exist during the run (if -Clean is run as part of the initial pass).
+Paths and services to clean up are hardcoded into the script under CONFIG AND SETUP, and will use the correct system drive for the system but the rest of the paths are hardcoded. The installation folders that any existing services refer to will be added to the cleanup list, if they are different and exist during the run (if -Clean is run as part of the initial pass).
 
 While it can be run manually, it is recommended that the script be run via a different RMM tool, and supports but does not require NinjaRMM Script Variables with the parameter names (as checkboxes) for configuration.
 
-KNOWN ISSUES with verson 0.0.1: The services, while they are deleted, are not always fully removed from the system when cleaned if the uninstallations fail. This is a bug that has not been diagnosed/fixed yet, but the services should still be left in the Stopped and Disabled state.
+KNOWN ISSUES with version 0.0.1: The services, while they are deleted, are not always fully removed from the system when cleaned if the uninstallations fail. This is a bug that has not been diagnosed/fixed yet, but the services should still be left in the Stopped and Disabled state.
 
 .PARAMETER Clean
-Clean up agent remnants in addition to attempting uninstallatino.
+Clean up agent remnants in addition to attempting uninstallation.
 
 .PARAMETER TestOnly
 Test removal of agent and services without actually removing them--will output test info to console instead of making changes. Kind of like a custom -WhatIf dry run without being official.
