@@ -26,7 +26,7 @@ Paths and services to clean up are hardcoded into the script under CONFIG AND SE
 
 While it can be run manually, it is recommended that the script be run via a different RMM tool, and supports but does not require NinjaRMM Script Variables with the parameter names (as checkboxes) for configuration.
 
-KNOWN ISSUES with version 0.0.1: The services, while they are deleted, are not always fully removed from the system when cleaned if the uninstallations fail. This is a bug that has not been diagnosed/fixed yet, but the services should still be left in the Stopped and Disabled state.
+KNOWN ISSUES with version 0.0.1: The services, while they are deleted, are not always fully removed from the system when cleaned if the uninstallations fail. This is a bug that has not been diagnosed/fixed yet, but the services should still be left in the Stopped and Disabled state. A fix has been added that will hopefully work in 0.0.2 but it needs testing. Thanks to @nullzilla on Discord!
 
 .PARAMETER Clean
 Clean up agent remnants in addition to attempting uninstallation.
@@ -41,6 +41,7 @@ Remove-N-Central-Agent.ps1
 Remove-N-Central-Agent.ps1 -Clean
 
 .NOTES
+Version 0.0.2 - 2024-03-25 by David Szpunar - Update service deletion options
 Version 0.0.1 - 2024-03-25 by David Szpunar - Initial release
 #>
 [CmdletBinding()]
@@ -278,7 +279,9 @@ Function Remove-StoppedService ($svc) {
         If ( $svc.Status -eq "Stopped" ) {
             Write-Host "Deleting : $($svc.Name) service"
             if (!$TestOnly) {
-                Start-Process "sc.exe" -ArgumentList "delete '$($svc.Name)'" -Wait
+                Stop-Process -Name $($svc.Name) -Force -ErrorAction SilentlyContinue
+                sc.exe delete $($svc.Name)
+                Remove-Item "HKLM:\SYSTEM\CurrentControlSet\Services\$($svc.Name)" -Force -Recurse -ErrorAction SilentlyContinue
             }
             else {
                 Write-Host "TEST ONLY: Not deleting $Name service"
