@@ -10,7 +10,7 @@ If the `-Clean` parameter is specified, it will also attempt (after uninstallati
 
 The script _should NOT_ remove N-able Cove backup installations or files/services.
 
-The script _should NOT_ uninstall or remove the Windows Probe service or agent, if it exists.
+The script _should_ uninstall but _does NOT_ forcibly clean/remove the Windows Probe service or agent, if it exists.
 
 The script _does NOT_ remove the registry setting showing the N-central device ID that would be used if the agent were ever reinstalled to map to the same device in the future. This ID should be a harmless artifact in most cases especially if the agent is no longer running on the system, but it could be updated to remove it if desired.
 
@@ -27,7 +27,9 @@ Paths and services to clean up are hardcoded into the script under **CONFIG AND 
 While it can be run manually, it is recommended that the script be run via a different RMM tool, and supports but does not require NinjaRMM Script Variables with the parameter names (as checkboxes) for configuration.
 
 ## KNOWN ISSUES
-*Known issues with version 0.0.1:* The services, while they are deleted, are not always fully removed from the system when cleaned if the uninstallations fail. This is a bug that has not been diagnosed/fixed yet, but the services should still be left in the Stopped and Disabled state.
+*Known issues with version 0.0.1 and 0.0.2:* The services, while they are deleted, are not always fully removed from the system when cleaned if the uninstallations fail. This is a bug that has not been diagnosed/fixed yet, but the services should still be left in the Stopped and Disabled state.
+
+**This issue has been resolved in 0.0.3** and re-running with `-Clean` should properly delete services.
 
 ## PARAMETER Clean
 Clean up agent remnants in addition to attempting uninstallation.
@@ -46,4 +48,6 @@ Remove-N-Central-Agent.ps1 -Clean
 ```
 
 ## NOTES
+**Version 0.0.3** - 2024-03-26 by David Szpunar - Resolution of service deletion bug in cleanup
+**Version 0.0.2** - 2024-03-26 by David Szpunar - Update service deletion options
 **Version 0.0.1** - 2024-03-25 by David Szpunar - Initial release
