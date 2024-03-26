@@ -10,7 +10,7 @@ If the -Clean parameter is specified, it will also attempt (after uninstallation
 
 The script should NOT remove N-able Cove backup installations or files/services.
 
-The script should NOT uninstall or remove the Windows Probe service or agent, if it exists.
+The script should uninstall (but does not clean up remants of) the Windows Probe service or agent, if it exists.
 
 The script does NOT remove the registry setting showing the N-central device ID that would be used if the agent were ever reinstalled to map to the same device in the future. This ID should be a harmless artifact in most cases especially if the agent is no longer running on the system, but it could be updated to remove it if desired.
 
