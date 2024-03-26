@@ -26,7 +26,7 @@ Paths and services to clean up are hardcoded into the script under CONFIG AND SE
 
 While it can be run manually, it is recommended that the script be run via a different RMM tool, and supports but does not require NinjaRMM Script Variables with the parameter names (as checkboxes) for configuration.
 
-KNOWN ISSUES with version 0.0.1: The services, while they are deleted, are not always fully removed from the system when cleaned if the uninstallations fail. This is a bug that has not been diagnosed/fixed yet, but the services should still be left in the Stopped and Disabled state. A fix has been added that will hopefully work in 0.0.2 but it needs testing. Thanks to @nullzilla on Discord!
+Service deletion issue with version 0.0.1 and 0.0.2 has been resolved, the script properly deletes services during cleanup, in addition to stopping and disabling.
 
 .PARAMETER Clean
 Clean up agent remnants in addition to attempting uninstallation.
@@ -41,7 +41,8 @@ Remove-N-Central-Agent.ps1
 Remove-N-Central-Agent.ps1 -Clean
 
 .NOTES
-Version 0.0.2 - 2024-03-25 by David Szpunar - Update service deletion options
+Version 0.0.3 - 2024-03-26 by David Szpunar - Resolution of service deletion bug in cleanup
+Version 0.0.2 - 2024-03-26 by David Szpunar - Update service deletion options
 Version 0.0.1 - 2024-03-25 by David Szpunar - Initial release
 #>
 [CmdletBinding()]
@@ -339,18 +340,18 @@ Function Remove-Registry-Path ([string]$Path) {
 function Remove-Agent {
     foreach ($service in $ServiceList) {
         Write-Host "`nGetting Service $service"
-        $ServiceObj = Get-Service -Name $service -ErrorAction SilentlyContinue
+        $ServiceObj = Get-Service $service -ErrorAction SilentlyContinue
         if (($ServiceObj)) {
             $SvcInfo = Get-WmiObject win32_service | Where-Object { $_.Name -eq "$service" } | Select-Object Name, DisplayName, State, StartMode, PathName
             Write-Host "STATE: $($SvcInfo.State) MODE: $($SvcInfo.StartMode) `tSERVICE: $($SvcInfo.DisplayName) '$($SvcInfo.Name)'"
             Write-Host "PATH: $($SvcInfo.PathName)"
-            # $ServiceObj = Get-Service -Name $($SvcInfo.Name)
 
             $SvcPath = Split-Path -Path $($SvcInfo.PathName).Trim('"') -Parent
             $ServicePaths.Add($SvcPath)
 
             Stop-RunningService $ServiceObj
             Disable-Service $ServiceObj
+            $ServiceObj = Get-Service $service -ErrorAction SilentlyContinue
             Remove-StoppedService $ServiceObj
         }
         else {
