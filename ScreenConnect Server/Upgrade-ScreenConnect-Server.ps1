@@ -87,7 +87,7 @@ If ($Force -or (Read-Host "Silently install this MSI file? (Yes/No)") -Like "y*"
         Get-Content $InstallerLogFile -ErrorAction SilentlyContinue | Select-Object -Last 200
         Write-Host "Upgrade failed, please troubleshoot manually. Log file: $InstallerLogFile" -ForegroundColor Red
     } else {
-        Write-Host "Uprade successfully completed. Please upgrade endpoint agents and adjust filter list version in application." -ForegroundColor Green
+        Write-Host "Upgrade successfully completed. Please upgrade endpoint agents and adjust filter list version in application." -ForegroundColor Green
     }
 } else {
     Write-Host "Cancelled, no action taken." -ForegroundColor Red
