@@ -41,6 +41,7 @@ Remove-N-Central-Agent.ps1
 Remove-N-Central-Agent.ps1 -Clean
 
 .NOTES
+Version 0.0.4 - 2024-06-14 by David Szpunar - Update service deletion to clean the N-able Take Control Service and some related folders/registry keys
 Version 0.0.3 - 2024-03-26 by David Szpunar - Resolution of service deletion bug in cleanup
 Version 0.0.2 - 2024-03-26 by David Szpunar - Update service deletion options
 Version 0.0.1 - 2024-03-25 by David Szpunar - Initial release
@@ -96,13 +97,17 @@ PREPARE THE LIST OF APPS TO UNINSTALL AND SERVICES TO REMOVE
 $AppList = @('Ecosystem Agent', 'Patch Management Service Controller', 'Request Handler Agent', 'File Cache Service Agent')
 $MSIList = @('Windows Agent', 'Windows Probe')
 
-$ServiceList = @('AutomationManagerAgent', 'EcosystemAgent', 'EcosystemAgentMaintenance', 'Windows Agent Service', 'Windows Agent Maintenance Service', 'PME.Agent.PmeService', 'BASupportExpressSrvcUpdater_N_Central', 'BASupportExpressStandaloneService_N_Central')
+$ServiceList = @('AutomationManagerAgent', 'EcosystemAgent', 'EcosystemAgentMaintenance', 'Windows Agent Service', 'Windows Agent Maintenance Service', 'PME.Agent.PmeService', 'BASupportExpressSrvcUpdater_N_Central', 'BASupportExpressStandaloneService_N_Central', 'N-able Take Control Service')
 
 # Resolve-Path "$($env:systemdrive)\Program Files*\MspPlatform"
 $FolderPathsList = @("$($env:systemdrive)\Program Files*\MspPlatform", 
     "$($env:systemdrive)\Program Files*\SolarWinds MSP", 
     "$($env:systemdrive)\Program Files*\MSPEcosystem", 
     "$($env:systemdrive)\Program Files*\BeAnywhere Support Express",
+    "$($env:systemdrive)\Program Files*\N-able Technologies\UpdateServerCache",
+    "$($env:systemdrive)\Program Files*\N-able Technologies\NablePatcheCache",
+    "$($env:systemdrive)\Program Files*\N-able Technologies\AutomationManagerEngine",
+    "$($env:systemdrive)\Program Files*\N-able Technologies\Windows Agent",
     "$($env:systemdrive)\ProgramData\MspPlatform", 
     "$($env:systemdrive)\ProgramData\N-able Technologies\AutomationManager",
     "$($env:systemdrive)\ProgramData\N-able Technologies\AVDefender",
@@ -114,7 +119,8 @@ $FolderPathsList = @("$($env:systemdrive)\Program Files*\MspPlatform",
     "$($env:systemdrive)\ProgramData\GetSupportService_Common",
     "$($env:systemdrive)\ProgramData\GetSupportService_Common_N-central",
     "$($env:systemdrive)\ProgramData\GetSupportService_N-central",
-    "$($env:systemdrive)\ProgramData\N-able Technologies"
+    "$($env:systemdrive)\ProgramData\N-able Technologies",
+    "$($env:systemdrive)\ProgramData\MSPEcosystem"
     )
 
 <#
@@ -139,6 +145,7 @@ $RegistryPaths.Add('HKLM:\SOFTWARE\N-able\AM')
 # $RegistryPaths.Add('HKLM:\SOFTWARE\WOW6432Node\N-able Technologies')
 $RegistryPaths.Add('HKLM:\SOFTWARE\WOW6432Node\N-able Technologies\Windows Agent')
 $RegistryPaths.Add('HKLM:\SOFTWARE\N-able Technologies\Windows Agent')
+$RegistryPaths.Add('HKLM:\SOFTWARE\N-able Technologies\Patch Management')
 
 ###### FUNCTIONS ######
 function Test-IsElevated {
