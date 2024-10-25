@@ -4,7 +4,7 @@
 ## Prerequisites
 - Script should be in its own folder
 - Inside the folder, create a subfolder named "invoices" and put a CSV file from Pax8 (Billing, Invoices tab, "CSV" download button in Actions column for each month) into the folder.
-- If you need to noramlize/transform one company/ID to another from the source Pax8 files to your reports, copy `SAMPLE-Company-Specific-Functions.ps1` to remove the `SAMPLE-` prefix and 
+- If you need to normalize/transform one company/ID to another from the source Pax8 files to your reports, copy `SAMPLE-Company-Specific-Functions.ps1` to remove the `SAMPLE-` prefix and 
     edit with your changes.
 - When running the script, it should have permissions to create folders in the current folder, and write files into the subfolder.
 - This script has only been tested with PowerShell 7.4, though it may work with other versions.
@@ -18,7 +18,7 @@ If you don't need to make adjustments like this, you can ignore this file as the
 that the `Normalize-Row-Data` function exists (from that file) before calling it, so it will run fine without. The function, if it does exist, 
 directly accesses the current $row values from the main script for comparisons, and then updates the original variables $companyName and $companyID 
 from that loop iteration (by using $script:companyName and $script:companyID to access the variables from the script scope); there are no variables 
-passed to or from the script. This isn't neceessarily the cleanest code, but it was the simplest way to extract the code with customer names out 
+passed to or from the script. This isn't necessarily the cleanest code, but it was the simplest way to extract the code with customer names out 
 of the main script to make it sharable, providing an example for you to use, and making its use optional if you don't need it.
 
 ## Running The Script
@@ -65,7 +65,7 @@ customize this for your purposes.
 We take the output and open the two resulting .csv files from the subfolder in Excel and Save As .xlsx files in the same folder, to make saving formatting 
 and updates easier.
 
-It's not yet provided with sample data, but we take the resulitng `analysis.csv` file and use it to build a pivot table in Excel, where we add new lines each month 
+It's not yet provided with sample data, but we take the resulting `analysis.csv` file and use it to build a pivot table in Excel, where we add new lines each month 
 and have the following additional columns we add to the five in `analysis.csv` which we then save as the file `new_analysis-thru-yyyy-MM.xlsx` in the same folder:
 - retail_price (we manually update the price these items were sold to the client from their invoice to this column of the spreadsheet)
 - margin_from_price_vs_cost (calculated value of the retail_price column minus the cost_total column, for us the Excel formula is `=F2-C2`)
@@ -100,8 +100,8 @@ process to get updated information regularly.
 ## V11 is an adjustment on 2024-06-13 that changes the following:
 - Add third company to the list of companies with Nerdio licenses.
 - Refactors the code that updates the company for Nerdio licenses based on the Description field to properly output it in the summary.
-- Adds some Verbose output for debugging the Nderio code activated if the -Verbose flag is passed.
+- Adds some Verbose output for debugging the Nerdio code activated if the -Verbose flag is passed.
 
 ## V12 is an adjustment on 2024-07-15 that changes the following for the first public release:
 - Moves any client names and client-specific normalization into external Company-Specific-Functions.ps1 file to enable sharing without compromising privacy.
-- Documenteation added for how to use the script to to the top in markdown format in order to create sharable version.
+- Documentation added for how to use the script to to the top in markdown format in order to create sharable version.
