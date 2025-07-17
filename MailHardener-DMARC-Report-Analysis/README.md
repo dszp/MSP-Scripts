@@ -173,3 +173,11 @@ All reports generated successfully!
 
 - **Client Mapping**: Optional feature that enhances report organization
 - **Cross-Platform**: Works on Windows, macOS, and Linux with PowerShell 7+
+
+## Screenshots of Output
+
+Example of report index page:
+![Report Index](<./img/index-example.png>)
+
+Example of report page (truncated):
+![Report Example](<./img/report-example.png>)
