@@ -1,3 +1,18 @@
+<#
+SCRIPT: Create-MailHardenerReport.ps1
+
+VERSION:
+- 1.0.0 - 2025-07-17 - Initial Release
+
+AUTHOR: David Szpunar (https://github.com/dszp and https://dszp.dev)
+
+LICENSE: MIT License
+
+DESCRIPTION:
+This script processes MailHardener HTML reports and generates consolidated summary reports with enhanced visualization and client-based grouping.
+See the README.md file for additional information.
+#>
+
 #Requires -Version 7.0
 
 [CmdletBinding()]

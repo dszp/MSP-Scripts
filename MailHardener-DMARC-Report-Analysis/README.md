@@ -22,11 +22,11 @@ For optimum security both are recommended, but due to the risks of breakage for 
 
 ## Version
 
-1.0.0 - 2025-07-17 - Initial release
+- 1.0.0 - 2025-07-17 - Initial release
 
 ## Author
 
-David Szpunar (https://github.com/dszp)
+David Szpunar (https://github.com/dszp and https://dszp.dev)
 
 ## Overview
 
